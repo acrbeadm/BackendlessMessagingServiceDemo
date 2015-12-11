@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MessagingServiceDemo</title>
+    <link href="css/jquery-ui.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.css" rel="stylesheet" />
+
+    <script src="js/jquery-1.9.0.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="libs/backendless.min.js"></script>
+
+    <script src="js/app.js"></script>
+  </head>
+  <body>
+  <!-- HEADER -->
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">Backendless Messaging</a>
+        </div>
+    </div>
+  </div>
+
+  <!-- MAIN BLOCK -->
+  <div class="container">
+      <br/>
+
+      <ul class="nav nav-tabs" id="tabs">
+      <li class="active"><a href="#tab1" data-toggle="tab">BaaS設定</a></li>
+      <li><a href="#tab2" data-toggle="tab">Pushメッセージ送信</a></li>
+      <li><a href="#tab3" data-toggle="tab">送信履歴</a></li>
+      </ul>
+
+      <div class="tab-content">
+          <div class="tab-pane fade in active" id="tab1">
+              <p>
+                  <label class="control-label col-md-2" for="Name">ベースURL</label>
+                  <input type="text" value="" name="base_url" id="base-url" class="form-control text single-line" placeholder="ベースURLを入力"/>
+                  <label class="control-label col-md-2" for="Name">Appliation ID</label>
+                  <input type="text" value="" name="app_id" id="app-id" class="form-control text single-line" placeholder="アプリケーションIDを入力"/>
+                  <label class="control-label col-md-2" for="Name">Secret key(JavaScript)</label>
+                  <input type="text" value="" name="key" id="key" class="form-control text single-line" placeholder="シークレットキーを入力"/>
+                  <label class="control-label col-md-2" for="Name">Version</label>
+                  <input type="text" value="" name="version" id="version" class="form-control text single-line" placeholder="v1 or v2 or ..."/>
+                  <label class="control-label col-md-2" for="Name">送信ユーザ アカウント</label>
+                  <input type="text" value="" name="email" id="email" class="form-control text single-line" placeholder="ユーザのメールアドレスを入力"/>
+                  <label class="control-label col-md-2" for="Name">送信ユーザ パスワード</label>
+                  <input type="password" value="" name="password" id="password" class="form-control text single-line" placeholder="ユーザのパスワードを入力"/>
+                  <label class="control-label col-md-2" for="Name">チャンネル</label>
+                  <input type="text" value="" name="channel" id="channel" class="form-control text single-line" default="default" placeholder="チャンネルを入力"/>
+              </p>
+          </div>
+
+          <div class="tab-pane fade" id="tab2">
+              <p>
+                  <label class="control-label col-md-2" for="Name">android-ticker-text</label>
+                  <input type="text" value="" name="android_ticker_text" id="android-ticker-text" class="form-control text single-line"/>
+                  <label class="control-label col-md-2" for="Name">android-content-title</label>
+                  <input type="text" value="" name="android_content_title" id="android-content-title" class="form-control text single-line"/>
+                  <label class="control-label col-md-2" for="Name">android-content-text</label>
+                  <input type="text" value="" name="android_content_text" id="android-content-text" class="form-control text single-line"/>
+                  <label class="control-label col-md-2" for="Name">iOS-Alert</label>
+                  <input type="text" value="" name="ios_alert" id="ios-alert" class="form-control text single-line"/>
+                  <label class="control-label col-md-2" for="Name">送信先OSを選ぶ</label>
+                  &nbsp;&nbsp;<input type="checkbox" value="1" name="android" id="android" class="form-control"/>android<br/>
+                  &nbsp;&nbsp;<input type="checkbox" value="1" name="ios" id="ios" class="form-control"/>iOS<br/>
+
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#others" href="#other_settings">
+                      その他の設定
+                      </a>
+                    </div>
+                    <div id="other_settings" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <label class="control-label col-md-2" for="Name">iOS-Badge（バッジに表示する数字を強制指定）</label>
+                        <input type="text" value="" name="ios_badge" id="ios-badge" class="form-control text single-line" onKeyup="this.value = this.value.replace(/[^0-9]+/i,'')"/>
+                        <label class="control-label col-md-2" for="Name">iOS-Sound（着信時の音を指定。アプリ側にリソース設定が必要です）</label>
+                        <input type="text" value="" name="ios_sound" id="ios-sound" class="form-control text single-line"/>
+                        <label class="control-label col-md-2" for="Name">送信方法</label>
+                        <input type="radio" value="1" name="method" id="push" class="form-control"/ checked>Push通知だけ送信<br/>
+                        <input type="radio" value="1" name="method" id="pub-sub" class="form-control"/>Push通知とメッセージを送信
+                        <fieldset class="well" style="background-color: white;">
+                          <legend style="width:inherit;padding:0 10px;border-bottom:none;background-color: white;">メッセージ送信用設定</legend>
+                          <label class="control-label col-md-2" for="Name">Backendless PublisherID</label>
+                          <input type="text" value="" name="publisher_id" id="publisher-id" class="form-control text single-line" placeholder="パブリッシャIDを入力"/>
+                          <label class="control-label col-md-2" for="Name">Backendless Subtopic</label>
+                          <input type="text" value="" name="subtopic" id="subtopic" class="form-control text single-line" placeholder="サブトピックを入力"/>
+                          <label class="control-label col-md-2" for="Name">Backendless Message</label>
+                          <textarea value="" name="message" id="message" class="form-control text-box span24" placeholder="メッセージを入力" ></textarea>
+                          <label class="control-label col-md-2" for="Name">特定デバイス送信(デバイスIDは開発者コンソールから確認してください)</label>
+                          <input type="text" value="" name="device_id" id="device-id" class="form-control text single-line" placeholder="デバイスIDをカンマ区切りで入力"/>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <br/>
+                  <input type="button" value="送信" name="send" id="send" class="btn btn-primary"/>
+                  <hr/>
+                  <div value="" name="tab2_message" id="tab2-message"></div>
+              </p>
+          </div>
+          <div class="tab-pane fade" id="tab3">
+              <p>
+                  <div value="" name="history_table" id="history-table"></div>
+              </p>
+          </div>
+      </div>
+  </div>
+
+
+
+  </body>
+</html>
