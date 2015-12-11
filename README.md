@@ -156,3 +156,4 @@ Pushの送信が可能な状態になっています。送信は管理者だけ�
 
 ## 本アプリについて。
 本アプリはApache License 2.0（http://www.apache.org/licenses/LICENSE-2.0.html） に基づいて再利用が可能です。
+ 本ソフトウェアは無保証です。自己責任で使用してください。
